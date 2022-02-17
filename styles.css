@@ -1,0 +1,183 @@
+
+
+body {
+    background-color: rgb(5,3,25);
+    font-family: 'Lato', sans-serif;
+    font-family: 'Roboto', sans-serif;
+    width: 100%;    
+    margin: 0px;
+}
+
+#game-description {
+    position: absolute;
+    border-radius: 6px;
+    background-color: rgba(5, 3, 25, 0.808);
+    color: rgba(126, 178, 116);
+    max-width: 40%;
+    padding:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#layer1 {
+    
+    background-image: url('grass background.png');
+    height: 100vh;
+    /* visibility: hidden; */
+    
+    
+}
+
+main {
+    display: flex;  
+    height: 100vh;
+    align-items: center;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#interface {
+    /* margin-left: 10px; */
+    color: rgb(126, 178, 116);
+    max-height: 100vh;
+    font-size: 95%;
+    /* max-width: 30%; */
+    
+}
+
+#stat-input {
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    padding: 5px;
+    
+}
+
+.data-category {
+    display: grid;
+    grid-template-columns: 7% auto;
+    
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    border-bottom: 2px solid rgb(126, 178, 116);
+}
+
+#fox-header-container {
+    border-bottom: rgb(5,3,25)
+}
+
+
+h4 {
+    margin: 3px;
+    margin-bottom: 5px;
+    max-width: 100%;
+    max-height: 100%;
+    /* position: absolute; */
+    transform: rotate(-90deg) 
+    
+}
+
+
+
+input {
+    color: rgb(126, 178, 116);
+    background-color: rgb(5,3,25);
+    transition: all .5s;
+    border: 2px solid rgba(126, 178, 116, 0.678);
+    border-radius: 2px;
+    margin-left: 3px;
+    
+}
+
+input:hover{
+    color: rgb(5,3,25);
+    background-color: rgb(126, 178, 116);
+}
+
+.question {
+    height: 20px;
+    width: 20px;
+    margin-left: 10px;
+    cursor:pointer;
+    border-radius: 50%;
+    transition: all .5s;
+}
+
+.question:hover{
+    background-color: rgb(104, 8, 194);
+}
+
+.answer {
+    visibility: hidden;
+    background-color: rgba(126, 178, 116, 0.616);
+    color: rgb(5,3,25);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    margin: 5px;
+}
+
+.show {
+    visibility: visible;
+    
+    
+}
+
+#predator-speed-efficiency-answer {
+    bottom: 10px; 
+}
+
+#predator-sense-efficiency-answer {
+    bottom: 40px; 
+}
+
+.close {
+    cursor: pointer;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    
+}
+
+.data-row {
+    display: grid;
+    grid-template-columns: 30% 20% 20% 10%;
+    margin: 3px;
+}
+
+#buttons {
+    margin: 5px;
+    margin-left: 8%;
+}
+
+button {
+    padding:0.35em 1.2em;
+    border: 2px solid rgb(126, 178, 116);
+    border-radius: 2px;
+    cursor:pointer;
+    background-color: rgb(5,3,25);
+    color:rgb(126, 178, 116);
+    font-family: 'Roboto', sans-serif;
+    transition: all .5s;
+}
+
+button:hover{
+    color: rgb(5,3,25);
+    background-color: rgb(126, 178, 116);
+}
+
+
+
+/* grass, rabbit, fox, and question mark images are free assets obtained with permission from flaticon.com */

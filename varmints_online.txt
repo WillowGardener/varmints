@@ -1,0 +1,13 @@
+server {
+       listen 8080;
+       listen [::]:8080;
+
+       server_name varmintsonline.com;
+
+       root /var/www/varmints_online;
+       index simulation.html;
+
+       location / {
+               try_files $uri $uri/ =404;
+       }
+}

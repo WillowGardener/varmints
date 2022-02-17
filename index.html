@@ -1,0 +1,407 @@
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap" rel="stylesheet"> 
+  
+  <link rel="stylesheet" href="styles.css">
+  <link rel='icon' href='fox.png'>
+  <title>Varmints... Online!</title>
+</head>
+
+<body>
+    
+    <main>
+      <div class='container'>
+        <p id='game-description'>
+        Varmints is a tiny ecosystem simulator. The rabbits eat the grass, the foxes eat the rabbits. Adjust the attributes of the grass, rabbits,
+        and foxes to see how it affects the development of your ecosystem, or leave them on their defaults to see what happens. But with each generation, the animals mutate, and through survival
+        of the fittest, each species evolves. Try to keep the system in balance as long as possible! To see what each attribute
+        does, click on the question mark next to it. When you're satisfied with the ecosystem's statistics, click the 'Begin Eco-simulation' button
+        and LOOK AT EM GO! <br>
+        &copy; Griffin Wimminger 2021
+        </p>
+        <canvas width="920" height="780" id = "layer1"></canvas>
+      </div>
+      <div id='interface'>
+        <div id = 'stat-input'>
+
+          <div id='grass-data' class='data-category'>
+            <div class='header-container'>
+              <h4>Grass</h4>
+            </div>
+            <div>
+              <div class = 'data-row'>
+                <label for='grass-energy'>Nutrition: </label>
+                <input type='number' value='10' id='grass-energy-min' name='grass-energy-min'>
+                <input type='number' value='10' id='grass-energy-max' name='grass-energy-max'>
+                <div>
+                  <img src='help.png' class='question' id='grass-energy-question'>
+                  <span class='answer' id='grass-energy-answer'>
+                    <p>Nutrition is the amount of energy a rabbit gains when eating a single unit of grass<p>
+                    <div class='close' id='grass-energy-close'>&times</div>
+                  </span>
+                </div>
+              </div>
+              
+              <div class = 'data-row'>
+                <label for='grass-germination-distance'>Spawn Distance: </label>
+                <input type='number' value='50' id='grass-germination-distance' name='grass-germination-distance'>
+                <div></div>
+                <div>           
+                  <img src='help.png' id='grass-germination-distance-question' class='question'>
+                  <span class='answer' id='grass-germination-distance-answer'>
+                    <p>Grass needs other grasses near it to create new grass. If you increase the spawn distance, the grass pollen can travel
+                    farther away, allowing the grass to mate with other grasses farther away.<p>
+                    <div class='close' id='grass-germination-distance-close'>&times</div>
+                  </span>             
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='grass-spawn-threshold-rate'>Spawn Threshold: </label>
+                <input type='number' value='4' id='grass-spawn-threshold' name='grass-spawn-threshold'>
+                <div></div>
+                <div>           
+                  <img src='help.png' id='grass-spawn-threshold-question' class='question'>
+                  <span class='answer' id='grass-spawn-threshold-answer'>
+                    <p>Spawn threshold is the number of nearby grasses that a grass needs to reproduce.<p>
+                    <div class='close' id='grass-spawn-threshold-close'>&times</div>
+                  </span>             
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='grass-reach' id='grass-reach-label'>Reach: </label>
+                <input type='number' value='70' max='1000' id='grass-reach' name='grass-reach'>
+                <div></div>
+                <div>           
+                  <img src='help.png' id='grass-reach-question' class='question'>
+                  <span class='answer' id='grass-reach-answer'>
+                    <p>Reach is how far away a grass can send its seed and grow a new grass.<p>
+                    <div class='close' id='grass-reach-close'>&times</div>
+                  </span>             
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id='rabbit-data' class='data-category'>
+            <div class='header-container'>
+              <h4>Rabbits</h4>
+            </div>
+            <div>
+              <div class = 'data-row'>
+                <label for='prey-start-number'>Starting Population: </label>
+                <input type='number' value='32' id='prey-start-number' name='prey-start-number'>
+                <div></div>
+                <div>                
+                  <img src='help.png' id='prey-start-number-question' class='question'>
+                  <span class='answer' id='prey-start-number-answer'>
+                    <p>Starting population is the number of rabbits placed in the ecosystem at the beginning of the simulation.<p>
+                    <div class='close' id='prey-start-number-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-max-age'>Maximum Age: </label>
+                <input type='number' value='8' id='prey-max-age' name='prey-max-age'>
+                <div></div>
+                <div>
+                  <img src='help.png' id='prey-max-age-question' class='question'>
+                  <span class='answer' id='prey-max-age-answer'>
+                    <p>Maximum age is the age at which a rabbit dies.<p>
+                    <div class='close' id='prey-max-age-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-energy'>Starting Energy: </label>
+                <input type='number' value='30' id='prey-energy-min' name='prey-energy-min'>
+                <input type='number' value='30'  id='prey-energy-max' name='prey-energy-max'>
+                <div>
+                  <img src='help.png' id='prey-energy-question' class='question'>
+                  <span class='answer' id='prey-energy-answer'>
+                    <p>Starting energy is the amount of energy that the first rabbits are created with.<p>
+                    <div class='close' id='prey-energy-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-speed'>Speed: </label>
+                <input type='number' value='3' id='prey-speed-min' name='prey-speed-min'>
+                <input type='number' value='4' id='prey-speed-max' name='prey-speed-max'>
+                <div>
+                  <img src='help.png' id='prey-speed-question' class='question'>
+                  <span class='answer' id='prey-speed-answer'>
+                    <p>Speed is how quickly the rabbit moves through the environment. Faster speeds use up more energy.<p>
+                    <div class='close' id='prey-speed-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-awareness'>Awareness: </label>
+                <input type='number' value='30' id='prey-awareness-min' name='prey-awareness-min'>
+                <input type='number' value='40' id='prey-awareness-max' name='prey-awareness-max'>
+                <div>
+                  <img src='help.png' id='prey-awareness-question' class='question'>
+                  <span class='answer' id='prey-awareness-answer'>
+                    <p>Awareness is how far away a rabbit can see grass, mates, and predators. Higher awareness uses more energy.<p>
+                    <div class='close' id='prey-awareness-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>          
+                <label for='prey-greed'>Greed: </label>
+                <input type='number' value='50' id='prey-greed-min' name='prey-greed-min'>
+                <input type='number' value='70' id='prey-greed-max' name='prey-greed-max'>
+                <div>
+                  <img src='help.png' id='prey-greed-question' class='question'>
+                  <span class='answer' id='prey-greed-answer'>
+                    <p>Greed is the maximum energy level at which rabbits will seek out food. Above this level, they will not eat.<p>
+                    <div class='close' id='prey-greed-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-libido'>Libido: </label>
+                <input type='number' value='30' id='prey-libido-min' name='prey-libido-min'>
+                <input type='number' value='40' id='prey-libido-max' name='prey-libido-max'>
+                <div>
+                  <img src='help.png' id='prey-libido-question' class='question'>
+                  <span class='answer' id='prey-libido-answer'>
+                    <p>Libido is the minimum energy level at which a rabbit will mate. Rabbits give a portion of their energy to their children, so they might not want to mate when they are hungry..
+                    A higher number means the rabbit will be more cautious about mating.<p>
+                    <div class='close' id='prey-libido-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-gestation-length'>Gestation Duration: </label>
+                <input type='number' value='3' id='prey-gestation-length' name='prey-gestation-length'>
+                <div></div>
+                <div>
+                  <img src='help.png' id='prey-gestation-length-question' class='question'>
+                  <span class='answer' id='prey-gestation-length-answer'>
+                    <p>Gestation duration is the amount of time, in seconds, a rabbit stays pregnant before giving birth.<p>
+                    <div class='close' id='prey-gestation-length-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-litter'>Litter Size: </label>
+                <input type='number' value='1' id='prey-litter-min' name='prey-litter-min'>
+                <input type='number' value='3' id='prey-litter-max' name='prey-litter-max'>
+                <div>
+                  <img src='help.png' id='prey-litter-question' class='question'>
+                  <span class='answer' id='prey-litter-answer'>
+                    <p>Litter size is the number of babies the rabbit will have during each pregnancy.<p>
+                    <div class='close' id='prey-litter-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-investment'>Parental Investment: </label>
+                <input type='number' min='0' max='1' step='.05' value='.25' id='prey-investment-min' name='prey-investment-min'>
+                <input type='number' min='0' max='1' step='.05' value='.5' id='prey-investment-max' name='prey-investment-max'>
+                <div>
+                  <img src='help.png' id='prey-investment-question' class='question'>
+                  <span class='answer' id='prey-investment-answer'>
+                    <p>Parental investment is the amount of energy the rabbit will give to their children, from .01(1%) to 1 (100%).<p>
+                    <div class='close' id='prey-investment-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-sense-efficiency'>Sense Efficiency: </label>
+                <input type='number' value='40' id='prey-sense-efficiency' name='prey-sense-efficiency'>
+                <div></div>
+                <div>
+                  <img src='help.png' id='prey-sense-efficiency-question' class='question'>
+                  <span class='answer' id='prey-sense-efficiency-answer'>
+                    <p>Sense efficiency is the amount of energy used by the rabbit's senses. A higher number means less energy is used.<p>
+                    <div class='close' id='prey-sense-efficiency-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='prey-speed-efficiency'>Speed Efficiency: </label>
+                <input type='number' value='4' id='prey-speed-efficiency' name='prey-speed-efficiency'>
+                <div></div>
+                <div>
+                  <img src='help.png' id='prey-speed-efficiency-question' class='question'>
+                  <span class='answer' id='prey-speed-efficiency-answer'>
+                    <p>Speed efficiency is the amouunt of energy used by the rabbit's movement. A higher number means less energy is used.<p>
+                    <div class='close'id='prey-speed-efficiency-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id='fox-data' class='data-category'>
+            <div class='header-container' id='fox-header-container'>
+              <h4>Foxes</h4>
+            </div>
+            <div>
+              <div class = 'data-row'>
+                <label for='predator-start-number'>Starting Population: </label>
+                <input type='number' value='6' id='predator-start-number' name='predator-start-number'>
+                <div></div>
+                <div>
+                  <img src='help.png' id='predator-start-number-question' class='question'>
+                  <span class='answer' id='predator-start-number-answer'>
+                    <p>Starting population is the number of foxes placed in the ecosystem at the beginning of the simulation.<p>
+                    <div class='close' id='predator-start-number-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-max-age'>Maximum Age: </label>
+                <input type='number' value='12' id='predator-max-age' name='predator-max-age'>
+                <div></div>
+                <div>
+                  <img src='help.png' class='question' id='predator-max-age-question'>
+                  <span class='answer' id='predator-max-age-answer'>
+                    <p>Maximum age is the age at which a fox dies.<p>
+                    <div class='close' id='predator-max-age-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-energy'>Starting Energy: </label>
+                <input type='number' value='40' id='predator-energy-min' name='predator-energy-min'>
+                <input type='number' value='40' id='predator-energy-max' name='predator-energy-max'>
+                <div>
+                  <img src='help.png' class='question' id='predator-energy-question'>
+                  <span class='answer' id='predator-energy-answer'>
+                    <p>Starting energy is the amount of energy that the first foxes are created with.<p>
+                    <div class='close' id='predator-energy-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-speed'>Speed: </label>
+                <input type='number' value='4' id='predator-speed-min' name='predator-speed-min'>
+                <input type='number' value='5' id='predator-speed-max' name='predator-speed-max'>
+                <div>
+                  <img src='help.png' class='question' id='predator-speed-question'>
+                  <span class='answer' id='predator-speed-answer'>
+                    <p>Speed is how quickly the fox moves through the environment. Faster speeds use up more energy.<p>
+                    <div class='close' id='predator-speed-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-awareness'>Awareness: </label>
+                <input type='number' value='30' id='predator-awareness-min' name='predator-awareness-min'>
+                <input type='number' value='40' id='predator-awareness-max' name='predator-awareness-max'>
+                <div>
+                  <img src='help.png' class='question' id='predator-awareness-question'>
+                  <span class='answer' id='predator-awareness-answer'>
+                    <p>Awareness is how far away a fox can see grass, mates, and predators. Higher awareness uses more energy.<p>
+                    <div class='close' id='predator-awareness-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>          
+                <label for='predator-greed'>Greed: </label>
+                <input type='number' value='50' id='predator-greed-min' name='predator-greed-min'>
+                <input type='number' value='70' id='predator-greed-max' name='predator-greed-max'>
+                <div>
+                  <img src='help.png' class='question' id='predator-greed-question'>
+                  <span class='answer' id='predator-greed-answer'>
+                    <p>Greed is the maximum energy level at which foxes will seek out food. Above this level, they will not eat.<p>
+                    <div class='close' id='predator-greed-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-libido'>Libido: </label>
+                <input type='number' value='30' id='predator-libido-min' name='predator-libido-min'>
+                <input type='number' value='40' id='predator-libido-max' name='predator-libido-max'>
+                <div>
+                  <img src='help.png' class='question' id='predator-libido-question'>
+                  <span class='answer' id='predator-libido-answer'>
+                    <p>Libido is the minimum energy level at which a fox will mate. Foxes give a portion of their energy to their children, so they might not want to mate when they are hungry.
+                    A higher number means the fox will be more cautious about mating.<p>
+                    <div class='close' id='predator-libido-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-gestation-length'>Gestation Duration: </label>
+                <input type='number' value='6' id='predator-gestation-length' name='predator-gestation-length'>
+                <div></div>
+                <div>
+                  <img src='help.png' class='question' id='predator-gestation-length-question'>
+                  <span class='answer' id='predator-gestation-length-answer'>
+                    <p>Gestation duration is the amount of time, in seconds, a fox stays pregnant before giving birth.<p>
+                    <div class='close' id='predator-gestation-length-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-litter'>Litter Size: </label>
+                <input type='number' value='1' id='predator-litter-min' name='predator-litter-min'>
+                <input type='number' value='2' id='predator-litter-max' name='predator-litter-max'>
+                <div>
+                  <img src='help.png' class='question' id='predator-litter-question'>
+                  <span class='answer' id='predator-litter-answer'>
+                    <p>Litter size is the number of babies the fox will have during each pregnancy.<p>
+                    <div class='close' id='predator-litter-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-investment'>Parental Investment: </label>
+                <input type='number' max='1' step='.05' value='.25' id='predator-investment-min' name='predator-investment-min'>
+                <input type='number' max='1' step='.05' value='.5' id='predator-investment-max' name='predator-investment-max'>
+                <div>
+                  <img src='help.png' class='question' id='predator-investment-question'>
+                  <span class='answer' id='predator-investment-answer'>
+                    <p>Parental investment is the amount of energy the fox will give to their children, from .01(1%) to 1 (100%).<p>
+                    <div class='close' id='predator-investment-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-sense-efficiency'>Sense Efficiency: </label>
+                <input type='number' value='40' id='predator-sense-efficiency' name='predator-sense-efficiency'>
+                <div></div>
+                <div>
+                  <img src='help.png' class='question' id='predator-sense-efficiency-question'>
+                  <span class='answer' id='predator-sense-efficiency-answer'>
+                    <p>Sense efficiency is the amount of energy used by the fox's senses. A higher number means less energy is used.<p>
+                    <div class='close' id='predator-sense-efficiency-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+              <div class = 'data-row'>
+                <label for='predator-speed-efficiency'>Speed Efficiency: </label>
+                <input type='number' value='4' id='predator-speed-efficiency' name='predator-speed-efficiency'>
+                <div></div>
+                <div>
+                  <img src='help.png' class='question' id='predator-speed-efficiency-question'>
+                  <span class='answer' id='predator-speed-efficiency-answer'>
+                    <p>Speed efficiency is the amouunt of energy used by the fox's movement. A higher numbeer means less energy is used.<p>
+                    <div class='close' id='predator-speed-efficiency-close'>&times</div>
+                  </span>  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id='buttons'>
+          <button id="begin-simulation">BEGIN ECO-SIMULATION</button>
+          <button id="halt-simulation">HALT VARMINTING</button>
+          
+        </div>
+      </div>
+    </main>
+    
+    
+    
+    
+    <script src = varmints.js></script>
+</body>
+
+</html>
+
